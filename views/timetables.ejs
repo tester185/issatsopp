@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    .seance{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 1em;
+        align-items: center;
+        filter: blur(0%);
+        opacity: 1;
+        transition: all 0.3s;
+        transition-duration: all 0.3s;
+
+
+    }
+    .day{
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 1em;
+        border: 0.08em solid black;
+        border-radius: 0.2em;
+
+
+    }
+     h3{
+        border: 0.08em solid black;
+        border-radius: 0.2em;
+        padding: 0.7em 0.5em;
+        background-color: rgba(20, 255, 137, 0.816);
+        color: white;
+        font-weight: bold;
+        font-size: 1.4em;
+        width: 100%;
+       
+    }
+    input{
+        width: 10%;
+        padding: 0.8em;
+        margin-left: 0.4em;
+        margin-right: 0.4em;
+    }
+    select{
+        width: 10%;
+        padding: 0.8em;
+        margin-left: 0.4em;
+        margin-right: 0.4em;
+    }
+    label{
+        width: 10%;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding: 1em;
+
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+    button{
+        padding: 1em;
+        width: 50%;
+        margin: 1em;
+        background-color: rgba(4, 92, 233, 0.593);
+        border:0.05em solid black;
+        color: white;
+        font-size: 1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    button:hover{
+        background-color: white;
+        border:0.05em solid rgba(4, 92, 233, 0.593);;
+        color: rgba(4, 92, 233, 0.593);
+        transition: all 0.2s;
+    }
+    .adder{
+        width: 100%;
+        margin: 0;
+    }
+
+    .hide{
+        opacity: 0 !important;
+        transition: all 0.3s !important;
+    }
+    span{
+        border:0.05em solid black;
+        border-radius: 0.2em;
+        padding: 0.8em;
+        margin-right: 0.5em;
+        background-color: rgba(19, 170, 122, 0.399);
+        
+    }
+    .rm-btn{
+        background-color: rgba(235, 103, 15, 0.658);
+        transition: all 0.2s;
+    }
+    .rm-btn:hover{
+        background-color: rgba(235, 103, 15, 0.8);
+        color: black;
+        border-color: black;
+        transition: all 0.2s;
+    }
+    .db-btn{
+        opacity: 1;
+        background-color: rgba(235, 15, 15, 0.658);
+        transition: all 0.2s;
+    }
+    .db-btn:hover{
+        background-color: rgba(230, 101, 101, 0.658);
+        color: rgba(235, 15, 15, 0.658);;
+        border-color: rgba(235, 15, 15, 0.658);;
+        transition: all 0.2s;
+    }
+    .hide{
+        opacity:0 ip !important;
+        transition: all 0.2s !important;
+    }
+    .smother{
+        opacity:0.5  !important;
+        filter:blur(0.1em) !important;
+        transition: all 0.2s !important;
+    }
+    .dbclass{
+        opacity: 1;
+        background-color: rgba(15, 147, 235, 0.8);
+        transition: all 0.2s;
+    }
+    .dbclass:hover{
+        background-color: rgba(15, 147, 235, 0.658);
+        color: white;
+        border-color: white;
+        transition: all 0.2s;
+    }
+    .container{
+        background-color: rgba(226, 97, 11, 0.493);
+        margin-top:2em ;
+        margin-bottom:2em ;
+      border : 0.08em solid black;
+      border-radius: 0.2em;
+    }
+    #extra{
+        display: block;
+        align-items: center;
+        text-align: center;
+    }
+
+</style>
+<body>
+    <form method="post" action="/mtimetable" id="Monday">
+        <input name="sf" value="<%=classes%><%=group%>" type="hidden">
+        <div class="container">
+                <h3>Monday</h3>
+            <div class="day">
+                <% let tableod=table["monday"]
+                for(let k in tableod){
+                   let v=parseInt(k)+1
+                   let element=tableod[k]
+                   let sn=element.seanceName
+                   let st=element.type
+                   let sc=element.class
+                   let sw=element.period
+                   let sp=element.prof
+                   let ss=element.status
+                   let dropdown=['H (Weekly)','QA (Biweekly)','QB (Biweekly)','Z3 (Biweekly)','Z4 (Biweekly)']
+                   let req='required'
+                    let val=1;
+                    let sclass=''
+                    let dbclass=''
+                    let dbp='disable'
+                   if(ss==false){
+                    sclass='smother'
+                    req=''
+                     dbclass='dbclass'
+                    dbp='enable'
+                    val=0
+                   }
+
+                   %>
+                   <span>S<%=parseInt(v)%></span>
+                   <div class="mseance seance <%=sclass%>">
+                       <input type="hidden" value="<%=val%>" name="mss<%=parseInt(v)%>">
+                       <label>Seance Name</label>
+                       <input value="<%=sn%>" type="text" name="msn<%=parseInt(v)%>" placeholder="Web Dev" <%=req%> >
+                       <label>Seance Type</label>
+                       <input value="<%=st%>" type="text" name="mst<%=parseInt(v)%>" placeholder="lecture" <%=req%>>
+                       <label>Seance Classroom</label>
+                       <input value="<%=sc%>" type="text" name="msc<%=parseInt(v)%>" placeholder="A04" <%=req%>>
+                       <label>Seance Cadence</label>
+                       <select  name="msw<%=parseInt(v)%>">
+                           
+                           <option value="<%=parseInt(sw)%>"><%=dropdown[parseInt(sw)-1]%></option>
+                           <%
+                           let picker=parseInt(sw);
+                           for(let z=1;z<6;z++){
+                            if(z==picker)continue;
+                            %>
+                           <option value="<%=z%>"><%=dropdown[z-1]%></option>
+                           <%}
+                           %>
+                       </select>
+                       <label>Seance Professor</label>
+                       <input value="<%=sp%>" type="text" name="msp<%=parseInt(v)%>" placeholder="John Doe" <%=req%>>
+                       <button class="rm-btn mrm-btn " id="mrm-btn-<%=parseInt(v)%>">x</button>
+                       <button class="db-btn mdb-btn <%=dbclass%>" id="mdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+                   </div> <%}%>
+                   <button id="Monday-adder-btn" class="adder">+</button>
+               
+
+            </div>
+        </div>
+
+        <!--tuesday***************************************************************************-->
+          
+      <div class="container">
+            <h3>Tuesday</h3>
+        <div class="day">
+            <%  tableod=table["tuesday"]
+            for( k in tableod){
+                v=parseInt(k)+1
+                element=tableod[k]
+                sn=element.seanceName
+                st=element.type
+                sc=element.class
+                sw=element.period
+                sp=element.prof
+                ss=element.status
+                dropdown=['H (Weekly)','QA (Biweekly)','QB (Biweekly)','Z3 (Biweekly)','Z4 (Biweekly)']
+                req='required'
+                 val=1;
+                 sclass=''
+                 dbclass=''
+                 dbp='disable'
+               if(ss==false){
+                sclass='smother'
+                req=''
+                 dbclass='dbclass'
+                dbp='enable'
+                val=0
+               }
+
+               %>
+               <span>S<%=parseInt(v)%></span>
+               <div class="tseance seance <%=sclass%>">
+                   <input type="hidden" value="<%=val%>" name="tss<%=parseInt(v)%>">
+                   <label>Seance Name</label>
+                   <input value="<%=sn%>" type="text" name="tsn<%=parseInt(v)%>" placeholder="Web Dev" <%=req%> >
+                   <label>Seance Type</label>
+                   <input value="<%=st%>" type="text" name="tst<%=parseInt(v)%>" placeholder="lecture" <%=req%>>
+                   <label>Seance Classroom</label>
+                   <input value="<%=sc%>" type="text" name="tsc<%=parseInt(v)%>" placeholder="A04" <%=req%>>
+                   <label>Seance Cadence</label>
+                   <select  name="tsw<%=parseInt(v)%>">
+                       
+                       <option value="<%=parseInt(sw)%>"><%=dropdown[parseInt(sw)-1]%></option>
+                       <%
+                       let picker=parseInt(sw);
+                       for(let z=1;z<6;z++){
+                        if(z==picker)continue;
+                        %>
+                       <option value="<%=z%>"><%=dropdown[z-1]%></option>
+                       <%}
+                       %>
+                   </select>
+                   <label>Seance Professor</label>
+                   <input value="<%=sp%>" type="text" name="tsp<%=parseInt(v)%>" placeholder="John Doe" <%=req%>>
+                   <button class="rm-btn trm-btn " id="trm-btn-<%=parseInt(v)%>">x</button>
+                   <button class="db-btn tdb-btn <%=dbclass%>" id="tdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+               </div> <%}%>
+               <button id="Tuesday-adder-btn" class="adder">+</button>
+           
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    
+        <!--wednesday***************************************************************************-->
+          
+        <div class="container">
+            <h3>Wednesday</h3>
+        <div class="day">
+            <%  tableod=table["wednesday"]
+            for( k in tableod){
+                v=parseInt(k)+1
+                element=tableod[k]
+                sn=element.seanceName
+                st=element.type
+                sc=element.class
+                sw=element.period
+                sp=element.prof
+                ss=element.status
+                dropdown=['H (Weekly)','QA (Biweekly)','QB (Biweekly)','Z3 (Biweekly)','Z4 (Biweekly)']
+                req='required'
+                 val=1;
+                 sclass=''
+                 dbclass=''
+                 dbp='disable'
+               if(ss==false){
+                sclass='smother'
+                req=''
+                 dbclass='dbclass'
+                dbp='enable'
+                val=0
+               }
+
+               %>
+               <span>S<%=parseInt(v)%></span>
+               <div class="wseance seance <%=sclass%>">
+                   <input type="hidden" value="<%=val%>" name="wss<%=parseInt(v)%>">
+                   <label>Seance Name</label>
+                   <input value="<%=sn%>" type="text" name="wsn<%=parseInt(v)%>" placeholder="Web Dev" <%=req%> >
+                   <label>Seance Type</label>
+                   <input value="<%=st%>" type="text" name="wst<%=parseInt(v)%>" placeholder="lecture" <%=req%>>
+                   <label>Seance Classroom</label>
+                   <input value="<%=sc%>" type="text" name="wsc<%=parseInt(v)%>" placeholder="A04" <%=req%>>
+                   <label>Seance Cadence</label>
+                   <select  name="wsw<%=parseInt(v)%>">
+                       
+                       <option value="<%=parseInt(sw)%>"><%=dropdown[parseInt(sw)-1]%></option>
+                       <%
+                       let picker=parseInt(sw);
+                       for(let z=1;z<6;z++){
+                        if(z==picker)continue;
+                        %>
+                       <option value="<%=z%>"><%=dropdown[z-1]%></option>
+                       <%}
+                       %>
+                   </select>
+                   <label>Seance Professor</label>
+                   <input value="<%=sp%>" type="text" name="wsp<%=parseInt(v)%>" placeholder="John Doe" <%=req%>>
+                   <button class="rm-btn wrm-btn " id="wrm-btn-<%=parseInt(v)%>">x</button>
+                   <button class="db-btn wdb-btn <%=dbclass%>" id="wdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+               </div> <%}%>
+               <button id="Wednesday-adder-btn" class="adder">+</button>
+           
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    
+        <!--Thusday***************************************************************************-->
+          
+        <div class="container">
+            <h3>Thursday</h3>
+        <div class="day">
+            <%  tableod=table["thursday"]
+            for( k in tableod){
+                v=parseInt(k)+1
+                element=tableod[k]
+                sn=element.seanceName
+                st=element.type
+                sc=element.class
+                sw=element.period
+                sp=element.prof
+                ss=element.status
+                dropdown=['H (Weekly)','QA (Biweekly)','QB (Biweekly)','Z3 (Biweekly)','Z4 (Biweekly)']
+                req='required'
+                 val=1;
+                 sclass=''
+                 dbclass=''
+                 dbp='disable'
+               if(ss==false){
+                sclass='smother'
+                req=''
+                 dbclass='dbclass'
+                dbp='enable'
+                val=0
+               }
+
+               %>
+               <span>S<%=parseInt(v)%></span>
+               <div class="hseance seance <%=sclass%>">
+                   <input type="hidden" value="<%=val%>" name="hss<%=parseInt(v)%>">
+                   <label>Seance Name</label>
+                   <input value="<%=sn%>" type="text" name="hsn<%=parseInt(v)%>" placeholder="Web Dev" <%=req%> >
+                   <label>Seance Type</label>
+                   <input value="<%=st%>" type="text" name="hst<%=parseInt(v)%>" placeholder="lecture" <%=req%>>
+                   <label>Seance Classroom</label>
+                   <input value="<%=sc%>" type="text" name="hsc<%=parseInt(v)%>" placeholder="A04" <%=req%>>
+                   <label>Seance Cadence</label>
+                   <select  name="hsw<%=parseInt(v)%>">
+                       
+                       <option value="<%=parseInt(sw)%>"><%=dropdown[parseInt(sw)-1]%></option>
+                       <%
+                       let picker=parseInt(sw);
+                       for(let z=1;z<6;z++){
+                        if(z==picker)continue;
+                        %>
+                       <option value="<%=z%>"><%=dropdown[z-1]%></option>
+                       <%}
+                       %>
+                   </select>
+                   <label>Seance Professor</label>
+                   <input value="<%=sp%>" type="text" name="hsp<%=parseInt(v)%>" placeholder="John Doe" <%=req%>>
+                   <button class="rm-btn hrm-btn " id="hrm-btn-<%=parseInt(v)%>">x</button>
+                   <button class="db-btn hdb-btn <%=dbclass%>" id="hdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+               </div> <%}%>
+               <button id="Thursday-adder-btn" class="adder">+</button>
+           
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+        <!--friday***************************************************************************-->
+          
+        <div class="container">
+            <h3>Friday</h3>
+        <div class="day">
+            <%  tableod=table["friday"]
+            for( k in tableod){
+                v=parseInt(k)+1
+                element=tableod[k]
+                sn=element.seanceName
+                st=element.type
+                sc=element.class
+                sw=element.period
+                sp=element.prof
+                ss=element.status
+                dropdown=['H (Weekly)','QA (Biweekly)','QB (Biweekly)','Z3 (Biweekly)','Z4 (Biweekly)']
+                req='required'
+                 val=1;
+                 sclass=''
+                 dbclass=''
+                 dbp='disable'
+               if(ss==false){
+                sclass='smother'
+                req=''
+                 dbclass='dbclass'
+                dbp='enable'
+                val=0
+               }
+
+               %>
+               <span>S<%=parseInt(v)%></span>
+               <div class="fseance seance <%=sclass%>">
+                   <input type="hidden" value="<%=val%>" name="fss<%=parseInt(v)%>">
+                   <label>Seance Name</label>
+                   <input value="<%=sn%>" type="text" name="fsn<%=parseInt(v)%>" placeholder="Web Dev" <%=req%> >
+                   <label>Seance Type</label>
+                   <input value="<%=st%>" type="text" name="fst<%=parseInt(v)%>" placeholder="lecture" <%=req%>>
+                   <label>Seance Classroom</label>
+                   <input value="<%=sc%>" type="text" name="fsc<%=parseInt(v)%>" placeholder="A04" <%=req%>>
+                   <label>Seance Cadence</label>
+                   <select  name="fsw<%=parseInt(v)%>">
+                       
+                       <option value="<%=parseInt(sw)%>"><%=dropdown[parseInt(sw)-1]%></option>
+                       <%
+                       let picker=parseInt(sw);
+                       for(let z=1;z<6;z++){
+                        if(z==picker)continue;
+                        %>
+                       <option value="<%=z%>"><%=dropdown[z-1]%></option>
+                       <%}
+                       %>
+                   </select>
+                   <label>Seance Professor</label>
+                   <input value="<%=sp%>" type="text" name="fsp<%=parseInt(v)%>" placeholder="John Doe" <%=req%>>
+                   <button class="rm-btn frm-btn " id="frm-btn-<%=parseInt(v)%>">x</button>
+                   <button class="db-btn fdb-btn <%=dbclass%>" id="fdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+               </div> <%}%>
+               <button id="Friday-adder-btn" class="adder">+</button>
+           
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+        <!--saturday***************************************************************************-->
+          
+        <div class="container">
+            <h3>Saturday</h3>
+        <div class="day">
+            <%  tableod=table["saturday"]
+            for( k in tableod){
+                v=parseInt(k)+1
+                element=tableod[k]
+                sn=element.seanceName
+                st=element.type
+                sc=element.class
+                sw=element.period
+                sp=element.prof
+                ss=element.status
+                dropdown=['H (Weekly)','QA (Biweekly)','QB (Biweekly)','Z3 (Biweekly)','Z4 (Biweekly)']
+                req='required'
+                 val=1;
+                 sclass=''
+                 dbclass=''
+                 dbp='disable'
+               if(ss==false){
+                sclass='smother'
+                req=''
+                 dbclass='dbclass'
+                dbp='enable'
+                val=0
+               }
+
+               %>
+               <span>S<%=parseInt(v)%></span>
+               <div class="sseance seance <%=sclass%>">
+                   <input type="hidden" value="<%=val%>" name="sss<%=parseInt(v)%>">
+                   <label>Seance Name</label>
+                   <input value="<%=sn%>" type="text" name="ssn<%=parseInt(v)%>" placeholder="Web Dev" <%=req%> >
+                   <label>Seance Type</label>
+                   <input value="<%=st%>" type="text" name="sst<%=parseInt(v)%>" placeholder="lecture" <%=req%>>
+                   <label>Seance Classroom</label>
+                   <input value="<%=sc%>" type="text" name="ssc<%=parseInt(v)%>" placeholder="A04" <%=req%>>
+                   <label>Seance Cadence</label>
+                   <select  name="ssw<%=parseInt(v)%>">
+                       
+                       <option value="<%=parseInt(sw)%>"><%=dropdown[parseInt(sw)-1]%></option>
+                       <%
+                       let picker=parseInt(sw);
+                       for(let z=1;z<6;z++){
+                        if(z==picker)continue;
+                        %>
+                       <option value="<%=z%>"><%=dropdown[z-1]%></option>
+                       <%}
+                       %>
+                   </select>
+                   <label>Seance Professor</label>
+                   <input value="<%=sp%>" type="text" name="ssp<%=parseInt(v)%>" placeholder="John Doe" <%=req%>>
+                   <button class="rm-btn srm-btn " id="srm-btn-<%=parseInt(v)%>">x</button>
+                   <button class="db-btn sdb-btn <%=dbclass%>" id="sdb-btn-<%=parseInt(v)%>"><%=dbp%></button>
+               </div> <%}%>
+               <button id="Saturday-adder-btn" class="adder">+</button>
+           
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <button type="submit">Save</button>
+        <button  type="reset">Reset</button>
+    </form>
+    <div id="extra">
+        <button type="button" id="double">Double Save</button></div>
+
+
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script id="ejs" type="application/json" class="<%=classes%>" group="<%=group%>"></script>
+    <script src="/javascript/TTDOM.js" type="text/javascript"></script>
+</body>
+</html>

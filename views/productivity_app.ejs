@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        flex-wrap: nowrap;
+        background-image: url('tasks bg.png');
+        
+    }
+    #f{
+        padding:1em;
+        margin:1em;
+        border:0.08em solid black;
+        border-radius: 1em;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        position: relative;
+    }
+    #u{
+        position: relative;
+        padding:1em;
+        margin:1em;
+        border:0.08em solid black;
+        border-radius: 1em;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        transition: all 0.2s linear;
+      
+    }
+    button{
+        position: relative;
+        text-align: center;
+        align-items: center;
+        text-decoration: none;
+        background-color: rgba(16, 113, 137, 0.4);
+        border:0.08em solid black;
+        border-radius: 1em;
+        padding:1em;
+        margin:1em;
+        cursor: pointer;
+    }
+    #add-btn{
+        font-size:1.2em;
+        color: white;
+        transition: 0.3s;
+        margin:2em;
+    }
+    
+    #add-btn span{
+        border:0.08em solid white;
+        border-radius: 10em;
+        padding:0.1em;
+        padding-left:0.3em ;
+        padding-right:0.3em ;
+        transition: 0.3s;
+
+    }
+    
+    #add-btn:hover span{
+        background-color: white;
+        transition: 0.3s;
+        color:rgba(16, 113, 137, 0.4); ;
+    }
+    #add-btn:hover{
+        border:0.08em solid white;
+        transition: 0.3s;
+
+    }
+    #task-input{position: relative;
+        border:0.08em solid black;
+        border-radius: 1em;
+        padding:1em;
+        margin: 2em;
+
+    }
+    #adder-form{position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        position: relative;
+    }
+    #adder-form input{
+    }
+    #finish{position: relative;
+        color: white;
+        transition: 0.4s;
+        font-weight:bold;
+    }
+    #finish:hover{
+        color: white;
+        border:0.08em solid white;
+        background-color: rgba(11, 231, 44, 0.629);
+        transition: 0.4s;
+    }
+    form{position: relative;
+        display: block;
+        align-items: center;
+        text-align:center ;
+        
+
+    }
+    li{display: flex;
+        padding:1em;
+        margin:1em;
+        border:0.08em solid black;
+        border-radius: 1em;
+        list-style: none;
+        text-decoration: none;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        background-color: rgb(0, 0, 0,0.2);/*to be automated*/
+        opacity: 0;
+        width: 100%;
+        align-items: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        
+        transition: 0.2s;
+
+
+
+    }
+    .animate{
+        text-align: center;
+        opacity: 1;
+        transition: 0.2s;
+    }
+    .animate span{
+        text-align: center;
+        width: 100%;
+    }
+    li span{
+        padding: 1em;
+        margin-left: 3em;
+    }
+    li input{
+        -webkit-appearance:none ;
+        cursor: pointer;
+        background-color: transparent;
+        text-decoration: none;
+        border:0.08em solid black;
+        margin: 1em;
+        border-radius: 2em;
+        transition: 0.4s;
+        width:1.5em;
+        height:1.5em;
+        
+    }
+    li input:checked{
+        -webkit-appearance:none ;
+        cursor: pointer;
+        padding: 1em;
+        background-color: rgba(11, 231, 44, 0.629);;
+        text-decoration: none;
+        border:0.08em solid transparent;
+        
+        margin: 1em;
+        border-radius: 1em;
+        transition: 0.4s;
+        
+    }
+    li:hover{
+        border:0.08em solid transparent;
+        background-color: alpha 1em;
+        transition: 0.2s;
+
+    }
+    #task-check{
+    }
+    #task_box{
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+    }
+    .listanimate{
+        opacity: 0;
+        transition: all 0.2s linear;
+    }
+    #progress{
+        background-color: rgba(13, 231, 17, 0.499);
+        padding: 0.5em;
+        width: 0%;
+        border-radius: 0.5em;
+        opacity: 1 ;
+        transition: 0.2s;
+
+    }
+    #progress-container{
+        border:0.08em solid black;
+        border-radius: 0.5em;
+        width: 40%;
+    }
+    .fadeout{
+        opacity: 0 !important;
+        transition: 0.2s;
+    }
+nav{
+    position: relative;
+
+    display: block;
+    align-items: center;
+    text-align: center;
+    padding: 1em 0 1em 0;
+    transition: 0.2s all;
+}
+#na{
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding:0.5em 0.8em;
+    margin: 0 0.5em 0 0.5em;
+    border: black solid 0.1em;
+    background-color: rgba(3, 252, 198, 0.315);
+    transition: 0.2s all;
+}
+#na:hover{
+    background-color: white;
+    color:rgba(31, 31, 190, 0.473);
+    border-radius: 0.4em;
+    transition: 0.2s all;
+
+}
+
+</style>
+<body>
+    <nav>
+        <a id="na" href="dashboard">Dashboard</a>
+    </nav>
+    <input id="userid" type="hidden" value="<%=user.email%>">
+    <div id="task_box">
+            <div id="add">
+                <form id="adder-form">
+                    <input id="task-input"  type="text" placeholder="Add Task Here">
+                    <button id="add-btn" type="submit"><span>+</span></button>
+                </form>
+            </div>
+        <form id="f">
+        <ul id="u">
+            <% 
+
+           
+            user.tasks.forEach((e)=>{%>
+                <li class="animate"><input type="checkbox" class="task-check"><span><%=e%></span></li>
+            <%}) %>
+        </ul>
+        <button id="finish" type="submit">Done<img src=""></button>
+
+        </form>
+    </div>
+    <div id="progress-container"><div id="progress" val="">
+        %
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/socket.io"></script>
+<script id="ejs" type="application/json" progress="<%=progress%>"></script>
+<script src='/javascript/PaDOM.js' type='text/javascript'></script>
+</body>
+</html>
